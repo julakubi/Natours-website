@@ -1,0 +1,53 @@
+.header {
+    height: 85vh; /* pudelko bedzie zajmowalo jakby 95% zawartosci ekranu */ 
+    background-image: linear-gradient(
+    to right bottom, 
+    rgba($color-primary-light, 0.8), 
+    rgba($color-primary-dark, 0.8)),
+    url(../img/hero-small.jpg); /* najpier okreslamy gradniet potem obraz, aby obraz byl na wierzchu, mozemy ustawic wartosc to right bottom zeby gradient zmienial sie w prawy dolny rog ale sa tez inne wartosci */ 
+    background-size: cover; /* dzieki temu obrazek wypelnia cale "pudelko" */ 
+    background-position: top; /* dzieki temu obrazek nie przycina sie na gorze*/ 
+    position: relative;
+
+    
+    @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+        -webkit-clip-path: polygon(0 0,100% 0,100% 75vh, 0 100%);
+        clip-path: polygon(0 0,100% 0,100% 75vh, 0 100%); /*idziemy od pierwszego rogu prostokata na okolo i w stosunku do niego przesowamy x w bok i y w dol*/
+        height: 95vh;
+    }
+
+    @media  only screen and (min-resolution: 192dpi) and (min-width:37.5em), 
+            only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width:37.5em),
+            only screen and  (min-width:125em) {
+        background-image: linear-gradient(
+        to right bottom, 
+        rgba($color-primary-light, 0.8), 
+        rgba($color-primary-dark, 0.8)),
+        url(../img/hero.jpg); /* najpier okreslamy gradniet potem obraz, aby obraz byl na wierzchu, mozemy ustawic wartosc to right bottom zeby gradient zmienial sie w prawy dolny rog ale sa tez inne wartosci */ 
+    }
+
+
+    @include respond(phone)
+    {
+        clip-path: polygon(0 0,100% 0,100% 85vh, 0 100%); /*idziemy od pierwszego rogu prostokata na okolo i w stosunku do niego przesowamy x w bok i y w dol*/
+        -webkit-clip-path: polygon(0 0,100% 0,100% 85vh, 0 100%);
+    }
+
+    &__logo-box {
+        position: absolute;
+        top:4rem;
+        left:4rem;
+    }
+
+    &__logo {
+        height:3.5rem; /* szerokosc bedzie automatycznie skalowana */
+    }
+        
+    &__text-box {
+        position: absolute;
+        top:40%; /* te elementy odnosza sie do elementu macierzystego czyli od ktorego miejsca w tym elemencie ma byc umieszczony text-box*/
+        left: 50%;
+        transform: translate(-50%,-50%);/* to odnosi sie do tego konktrertnego elementu tj text-boxa i przesuwa poczatek umieszenia do polowy szerokosci i wysokosci tj na srodek */
+        text-align: center;
+    }
+}

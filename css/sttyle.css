@@ -1,0 +1,176 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+html {
+    font-size:62.5%; /*dzięki temu z 16px domyślnych uzyskujemy 10 a jednocześnie nie nadpisujemy użytkownikowi*/
+}
+body {
+    font-family: "Lato", sans-serif; /* czcionkę zawsze definujemy w body a nie w * to dobra praktyka */
+    font-weight: 400;
+   /* font-size: 16px; */
+    line-height: 1.7;
+    color: #777;
+    padding:3rem; /*biała obramówka na około całej strony*/
+    box-sizing: border-box;
+}
+
+.header {
+height: 95vh; /* pudełko będzie zajmowało jakby 95% zawartości ekranu */ 
+background-image: linear-gradient(
+to right bottom, 
+rgba(128, 214, 113, 0.8), 
+rgba(40, 180, 133, 0.8)),
+url(../img/hero.jpg); /* najpier określamy gradniet potem obraz, aby obraz był na wierzchu, możemy ustawić wartość to right bottom żeby gradient zmieniał się w prawy dolny róg ale są też inne wartości */ 
+background-size: cover; /* dzięki temu obrazek wypełnia całe "pudełko" */ 
+background-position: top; /* dzięki temu obrazek nie przycina się na górze*/ 
+position: relative;
+
+clip-path: polygon(0 0,100% 0,100% 75vh, 0 100%) /*idziemy od pierwszego rogu prostokąta na około i w stosunku do niego przesówamy x w bok i y w dół*/
+}
+
+.header__logo-box {
+position: absolute;
+top:4rem;
+left:4rem;
+}
+.header__logo{
+height:3.5rem; /* szerokość będzie automatycznie skalowana */
+}
+.header__text-box {
+    position: absolute;
+    top:40%; /* te elementy odnoszą się do elementu macierzystego czyli od którego miejsca w tym elemencie ma być umieszczony text-box*/
+    left: 50%;
+    transform: translate(-50%,-50%);/* to odnosi się do tego konktrertnego elementu tj text-boxa i przesuwa początek umieszenia do połowy szerokości i wysokości tj na środek */
+    text-align: center;
+}
+.heading-primary {
+color:#FFF;
+text-transform: uppercase;
+backface-visibility: hidden; /*animacje mają jakiś problem w CSSie i się chwieją i to sposób na to żeby nie było tego widać tylna cześć transformacji ukryta dla użytkownika*/
+margin-bottom: 6rem;
+
+}
+
+.heading-primary--main {
+    display: block;
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    /*animation-delay: 3s; opóźnienie animacji
+animation-iteration-time: 3; ilość razy ile animacja się odpala
+animation-timing-function: ease-out; to czas w jakim idzie animacja i można tak jak tu np ustawić że na początku idzie szybciej a potem zwalnia są różne wartości
+    */
+}
+
+.heading-primary--sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1.75rem;
+    animation: moveInRight 1s ease-out;
+}
+
+@keyframes moveInLeft {
+    0%{
+    opacity: 0;
+    transform: translateX(-10rem);
+    }
+80% {
+    transform: translateX(1rem)
+}
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInRight {
+    0%{
+    opacity: 0;
+    transform: translateX(10rem);
+    }
+80% {
+    transform: translateX(-1rem)
+}
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+@keyframes moveInBottom {
+    0%{
+    opacity: 0;
+    transform: translateY(3rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+.btn:link,
+.btn:visited {
+text-transform:uppercase;
+text-decoration: none;
+padding: 1.5rem 4rem;
+display: inline-block;
+border-radius: 10rem;
+transition: all .2s; /* jak chcemy robić animacje to w tym głównym elemencie musi to być a reszte już potem w hover i active */
+position: relative;
+font-size:1.6rem;
+
+
+}
+.btn:hover {
+    transform:translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba(0,0,0,.2); 
+}
+.btn:active {
+    transform: translate(-1px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.2); /* x y rozmycie kolor z opacity */
+}
+.btn--white {
+    background-color: #FFF;
+    color: #777;
+}
+
+.btn::after { 
+    content:"";
+    display: inline-block;
+    height: 100%; /*borze btn jako rodzica i od niego bierze wartości*/
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+.btn--white::after {
+    background-color: white;
+}
+.btn:hover::after{
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity:0;
+}
+.btn--animated {
+    animation: moveInBottom 1s ease-out .75s;
+    animation-fill-mode: backwards; /* automatycznie przed animacją zastosuje style z 0% czyli tutaj będzie opacity:0 żeby button dopiero wjechał z animacją żeby go nie było wcześniej widać */
+}
+
